@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="BusinessLayer/BusinessLayer.csproj" />
-  <Project Path="ContactsProject.csproj" />
   <Project Path="DataAccessLayer/DataAccessLayer.csproj" />
+  <Project Path="UILayer.csproj" />
 </Solution>
