@@ -99,8 +99,10 @@ namespace ContactsProject
             Console.WriteLine("Contacts data: ");
 
             foreach (DataRow Row in DT.Rows) {
+                
+                Console.WriteLine("FirstName | LastName | LastName");
 
-                Console.WriteLine($"{Row["ContactID"]}, {Row["FirstName"]},{Row["LastName"]}");
+                Console.WriteLine($"\t{Row["ContactID"]} | {Row["FirstName"]} | {Row["LastName"]}");
             }
             
 
