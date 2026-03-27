@@ -93,13 +93,26 @@ namespace ContactsProject
             }
         
         }
+
+        static void TestListContact() {
+            DataTable DT = clsContact.GetAllContacts();
+            Console.WriteLine("Contacts data: ");
+
+            foreach (DataRow Row in DT.Rows) {
+
+                Console.WriteLine($"{Row["ContactID"]}, {Row["FirstName"]},{Row["LastName"]}");
+            }
+            
+
+        
+        }
         static void Main(string[] args)
         {
             //TestFindContact(7);
             //TestAddContact();
             //TestUpdateContact(1);
-            TestDeleteContact(8);
-            //TestListContact();
+            //TestDeleteContact(8);
+            TestListContact();
             Console.ReadKey();
 
         }

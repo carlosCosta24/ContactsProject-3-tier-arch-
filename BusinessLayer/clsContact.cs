@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DataAccessLayer;
+using System;
 using System.Data;
 using System.Security.Cryptography;
-using DataAccessLayer;
+using System.Xml;
 
 namespace BusinessLayer
 {
@@ -118,9 +119,13 @@ namespace BusinessLayer
 
             return clsContactsData.DeleteContact(ID);
         
+
+        }
+        public static DataTable GetAllContacts()
+        {
+
+            return clsContactsData.GetAllContacts();
         }
     }
-
-
     
 }

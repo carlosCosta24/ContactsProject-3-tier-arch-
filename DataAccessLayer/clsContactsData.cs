@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
+using System.Data;
 
 namespace DataAccessLayer
 {
@@ -223,6 +224,36 @@ namespace DataAccessLayer
             return (RowsAffected > 0);
         
         
+        }
+
+        public static DataTable GetAllContacts() { 
+        
+            DataTable dt = new DataTable();
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+
+            string Query = @"select * from Contacts";
+            SqlCommand Command = new SqlCommand(Query, Connection);
+
+            try
+            {
+                Connection.Open();
+                SqlDataReader Reader = Command.ExecuteReader();
+                if (Reader.HasRows)
+                {
+                    dt.Load(Reader);
+                }
+                Reader.Close();
+                Connection.Close();
+            }
+            catch (Exception E)
+            {
+
+                // save to logs 
+            }
+            finally { 
+                Connection.Close(); 
+            }
+            return dt;
         }
     }
 }
