@@ -54,11 +54,36 @@ namespace ContactsProject
 
             }
         }
+        static void TestUpdateContact(int ID) {
+
+            clsContact ContactToUpdate = clsContact.Find(ID);
+            if (ContactToUpdate != null)
+            {
+
+                ContactToUpdate.FirstName = "Ricardo";
+                ContactToUpdate.LastName = "Costa";
+                ContactToUpdate.Email = "RicardoCosta@gmail.com";
+                ContactToUpdate.Phone = "1234567890";
+                ContactToUpdate.Address = "Aracaju";
+                ContactToUpdate.DateOfBirth = new DateTime(1988, 8, 8);
+                ContactToUpdate.CountryID = 5;
+                ContactToUpdate.ImagePath = "";
+
+                if (ContactToUpdate.Save())
+                {
+                    Console.WriteLine("Contact Updated successfully");
+                    ContactCard(ContactToUpdate);
+                }
+            }
+            else {
+                Console.WriteLine("Not Found");
+            }
+        }
         static void Main(string[] args)
         {
             //TestFindContact(7);
-            TestAddContact();
-            //TestUpdateContact();
+            //TestAddContact();
+            TestUpdateContact(1);
             //TestListContact();
             Console.ReadKey();
 

@@ -46,7 +46,7 @@ namespace BusinessLayer
             this.DateOfBirth = DateOfBirth;
             this.CountryID = CountryID;
             this.ImagePath = ImagePath;
-            Mode = enMode.AddNew;
+            Mode = enMode.Update;
 
         }
 
@@ -59,7 +59,6 @@ namespace BusinessLayer
             Address = "",
             ImagePath = "";
             int CountryID = -1;
-
             DateTime  DateOfBirth = DateTime.Now;
 
             if (clsContactsData.GetContactById(ID, ref FirstName, ref LastName, ref Email,
@@ -85,6 +84,13 @@ namespace BusinessLayer
             return (this.ID != -1);
 
         }
+
+        private bool _UpdateContact() {
+
+            return clsContactsData.UpdateContact(this.ID, this.FirstName, this.LastName,
+                this.Email, this.Phone, this.Address, this.DateOfBirth, this.CountryID, this.ImagePath);
+        
+        }
         public bool Save()
         {
 
@@ -101,16 +107,15 @@ namespace BusinessLayer
                     {
                         return false;
                     }
-                    //    case enMode.Update:
-                    //        return _UpdateContact();
+                 case enMode.Update:
+                    return _UpdateContact();
 
+             }
 
-
-                    //}
+                 return false;
             }
-                    return false;
         }
 
 
-    }
+    
 }
