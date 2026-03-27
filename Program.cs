@@ -82,15 +82,24 @@ namespace ContactsProject
 
         static void TestDeleteContact(int ID){
 
-            if (clsContact.DeleteContact(ID))
+            if (clsContact.IsContactExist(ID))
             {
 
-                Console.WriteLine("Contact deleted successfully :-) ");
+                if (clsContact.DeleteContact(ID))
+                {
+
+                    Console.WriteLine("Contact deleted successfully :-) ");
+                }
+                else
+                {
+                    Console.WriteLine("Contact not deleted :-( ");
+                }
+
             }
-            else
-            {
-                Console.WriteLine("Contact not deleted :-( ");
+            else {
+                Console.WriteLine("Contact doesn't exist");
             }
+
         
         }
 
@@ -108,15 +117,30 @@ namespace ContactsProject
 
         
         }
+        static void TestIsContactExist(int ID) {
+
+            if (clsContact.IsContactExist(ID))
+            {
+
+                Console.WriteLine($"Contact with ID: {ID} exist :-)");
+            }
+            else
+            {
+                Console.WriteLine("Contact doesn't exist");
+            }
+        }
         static void Main(string[] args)
         {
             //TestFindContact(7);
             //TestAddContact();
             //TestUpdateContact(1);
-            //TestDeleteContact(8);
-            TestListContact();
+            TestDeleteContact(5);
+            //TestListContact();
+            //TestIsContactExist(80);
             Console.ReadKey();
 
         }
+
+        
     }
 }

@@ -255,5 +255,49 @@ namespace DataAccessLayer
             }
             return dt;
         }
+
+        public static bool IsContactExist(int ID) { 
+        
+            bool isFound = false;
+
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+            string Query = @"select found = 1 from Contacts where ContactID = @ContactID";
+            SqlCommand Command = new SqlCommand(Query, Connection);
+
+            Command.Parameters.AddWithValue("@ContactID", ID);
+
+            try
+            {
+
+                Connection.Open();
+                SqlDataReader Reader = Command.ExecuteReader();
+
+                if (Reader.HasRows)
+                {
+                    isFound = true;
+                    Connection.Close();
+                }
+                else
+                {
+                    isFound = false;
+
+                }
+
+            }
+            catch (Exception E)
+            {
+
+                isFound = false;
+            }
+            finally { 
+                
+                Connection.Close();
+
+            
+            }
+            return isFound;
+        
+        
+        }
     }
 }
