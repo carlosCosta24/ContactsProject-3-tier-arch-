@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace DataAccessLayer
 {
@@ -71,8 +72,6 @@ namespace DataAccessLayer
             return IsFound;
         }
 
-
-
         public static int AddNewContact(string FirstName, string LastName, string Email, string Phone, string Address,
              int CountryID, DateTime DateOfBirth, string ImagePath)
         {
@@ -129,8 +128,9 @@ namespace DataAccessLayer
             return ContactID;
         }
 
-    public static bool UpdateContact(int Id, string FirstName, string LastName,
-             string Email, string Phone, string Address, DateTime DateOfBirth, int CountryId, string ImagePath) {
+        public static bool UpdateContact(int Id, string FirstName, string LastName,
+             string Email, string Phone, string Address, DateTime DateOfBirth, int CountryId, string ImagePath)
+        {
 
             int RowsAffected = 0;
             SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
@@ -161,21 +161,25 @@ namespace DataAccessLayer
 
                 Command.Parameters.AddWithValue("@ImagePath", ImagePath);
             }
-            else {
+            else
+            {
                 Command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
             }
 
 
 
-            try {
+            try
+            {
                 Connection.Open();
                 RowsAffected = Command.ExecuteNonQuery();
             }
-            catch (Exception E) {
+            catch (Exception E)
+            {
                 //Console.WriteLine("Error: " + E.Message);
                 return false;
             }
-            finally {
+            finally
+            {
                 Connection.Close();
             }
 
@@ -184,5 +188,41 @@ namespace DataAccessLayer
 
 
         }
-    } 
+
+
+        public static bool DeleteContact(int ID) {
+            
+            int RowsAffected = 0;
+
+            SqlConnection connection = new SqlConnection(clsDataBaseAccess.Access);
+
+            string Query = @"delete from Contacts where ContactID = @ContactID";
+
+            SqlCommand Command = new SqlCommand(Query, connection);
+
+            Command.Parameters.AddWithValue("@ContactID", ID);
+
+
+            try
+            {
+
+                connection.Open();
+
+                RowsAffected = Command.ExecuteNonQuery();
+
+            }
+            catch (Exception E)
+            {
+
+                return false;
+            }
+            finally { 
+                connection.Close();
+            }
+
+            return (RowsAffected > 0);
+        
+        
+        }
+    }
 }

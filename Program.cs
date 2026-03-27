@@ -79,11 +79,26 @@ namespace ContactsProject
                 Console.WriteLine("Not Found");
             }
         }
+
+        static void TestDeleteContact(int ID){
+
+            if (clsContact.DeleteContact(ID))
+            {
+
+                Console.WriteLine("Contact deleted successfully :-) ");
+            }
+            else
+            {
+                Console.WriteLine("Contact not deleted :-( ");
+            }
+        
+        }
         static void Main(string[] args)
         {
             //TestFindContact(7);
             //TestAddContact();
-            TestUpdateContact(1);
+            //TestUpdateContact(1);
+            TestDeleteContact(8);
             //TestListContact();
             Console.ReadKey();
 

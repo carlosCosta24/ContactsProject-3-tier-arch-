@@ -114,7 +114,12 @@ namespace BusinessLayer
 
                  return false;
             }
+        public static bool DeleteContact(int ID) {
+
+            return clsContactsData.DeleteContact(ID);
+        
         }
+    }
 
 
     
