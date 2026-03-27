@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Data;
+using System.Security.Cryptography;
 using DataAccessLayer;
 
 namespace BusinessLayer
 {
     public class clsContact
     {
+        public enum enMode { AddNew = 0, Update = 1};
+        public enMode Mode = enMode.AddNew;
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -27,6 +30,7 @@ namespace BusinessLayer
             this.DateOfBirth = DateTime.Now;
             this.CountryID = -1;
             this.ImagePath = "";
+            Mode = enMode.AddNew;
 
         }
 
@@ -42,6 +46,7 @@ namespace BusinessLayer
             this.DateOfBirth = DateOfBirth;
             this.CountryID = CountryID;
             this.ImagePath = ImagePath;
+            Mode = enMode.AddNew;
 
         }
 
@@ -69,7 +74,41 @@ namespace BusinessLayer
             }
 
 
+
         
+        }
+        private bool _AddNewContact()
+        {
+
+            this.ID = clsContactsData.AddNewContact(this.FirstName, this.LastName,
+                this.Email, this.Phone, this.Address, this.CountryID, this.DateOfBirth, this.ImagePath);
+            return (this.ID != -1);
+
+        }
+        public bool Save()
+        {
+
+            switch (Mode)
+            {
+
+                case enMode.AddNew:
+                    if (_AddNewContact())
+                    {
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    //    case enMode.Update:
+                    //        return _UpdateContact();
+
+
+
+                    //}
+            }
+                    return false;
         }
 
 
