@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Security.Cryptography;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace BusinessLayer
 {
@@ -168,6 +169,38 @@ namespace BusinessLayer
             else { 
                 return null;
             }
+        
+        }
+
+        public bool Save() {
+
+            switch (Mode) { 
+            
+                case enMode.AddNew:
+                    if (_AddNewCountry())
+                    {
+
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    else { 
+                        return false;
+                    }
+                    //case enMode.Update:
+                    //return _UpdateCountry();
+            
+            }
+            return false;
+        
+        
+        
+        }
+
+        public bool _AddNewCountry() {
+
+
+            this.ID = clsCountryData.AddNewCountry(this.CountryName);
+            return (this.ID != -1); 
         
         }
     

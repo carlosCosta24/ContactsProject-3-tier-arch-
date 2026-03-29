@@ -154,7 +154,18 @@ namespace ContactsProject
             }
 
         }
-        //static void TestAddCountry() { }
+
+        static void TestAddCountry() {
+            clsCountry Country = new clsCountry();
+            Country.ID = 6;
+            Country.CountryName = "Brazil";
+
+            if (Country.Save()) {
+
+                Console.WriteLine($"Country has been Add successfully: with ID: {Country.ID}");
+            
+            }
+        }
         //static void TestUpdateCountry() { }
         //static void TestDeleteCountry() { }
         //static void TestListCountry() { }
@@ -168,7 +179,8 @@ namespace ContactsProject
             //TestDeleteContact(5);
             //TestListContact();
             //TestIsContactExist(80);
-            TestFindCountry(2);
+            //TestFindCountry(2);
+            TestAddCountry();
             Console.ReadKey();
 
         }

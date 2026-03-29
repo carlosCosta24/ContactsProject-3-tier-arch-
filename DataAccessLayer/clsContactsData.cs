@@ -335,5 +335,49 @@ namespace DataAccessLayer
             return isFound;
 
         }
+
+        public static int AddNewCountry(string CountryName) {
+
+
+            int CountryID = -1;
+
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+
+            string Query = @"insert into Countries (CountryName) values (@CountryName) select scope_identity()";
+
+            SqlCommand Command = new SqlCommand(Query, Connection);
+
+            
+            Command.Parameters.AddWithValue("@CountryName", CountryName);
+
+            try
+            {
+
+                Connection.Open();
+
+                object Result = Command.ExecuteScalar();
+
+                if (Result != null && int.TryParse(Result.ToString(), out int InsertedID))
+                {
+
+                    CountryID = InsertedID;
+
+                }
+
+            }
+            catch (Exception E)
+            {
+
+                // log to logs
+
+
+            }
+            finally {
+                Connection.Close();
+            
+            }
+            return CountryID;
+
+        }
     }
 }
