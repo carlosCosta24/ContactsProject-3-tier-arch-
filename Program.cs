@@ -188,7 +188,19 @@ namespace ContactsProject
             }
         
         }
-        //static void TestDeleteCountry() { }
+        static void TestDeleteCountry(int ID) {
+
+            if (clsCountry.DeleteCountry(ID))
+            {
+
+                Console.WriteLine("Country has been deleted successfully:-)");
+            }
+            else { 
+                Console.WriteLine("Country hasn't been deleted :-(");
+
+            }
+
+        }
         //static void TestListCountry() { }
         //static void TestIsCountryExist() { }
 
@@ -202,7 +214,8 @@ namespace ContactsProject
             //TestIsContactExist(80);
             //TestFindCountry(2);
             //TestAddCountry();
-            TestUpdateCountry(1);
+            //TestUpdateCountry(1);
+            TestDeleteCountry(4);
             Console.ReadKey();
 
         }

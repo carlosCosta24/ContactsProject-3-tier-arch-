@@ -209,6 +209,11 @@ namespace BusinessLayer
             return clsCountryData.UpdateCountry(this.ID, this.CountryName);
         
         }
+
+        public static bool DeleteCountry(int ID) {
+
+            return clsCountryData.DeleteCountry(ID);
+        }
     
     
     }
