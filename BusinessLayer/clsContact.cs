@@ -214,6 +214,12 @@ namespace BusinessLayer
 
             return clsCountryData.DeleteCountry(ID);
         }
+        public static DataTable GetAllCountries() {
+
+
+            return clsCountryData.GetAllCountries();
+        
+        }
     
     
     }

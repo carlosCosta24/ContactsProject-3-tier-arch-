@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace DataAccessLayer
 {
@@ -439,6 +440,40 @@ namespace DataAccessLayer
             
             }
             return (RowsAffected > 0);
+        
+        }
+
+        public static DataTable GetAllCountries() { 
+        
+        
+            DataTable CountriesTable = new DataTable();
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+            string Query = @"select * from Countries";
+            SqlCommand Command = new SqlCommand(Query, Connection);
+
+            try
+            {
+
+                Connection.Open();
+                SqlDataReader Reader = Command.ExecuteReader();
+                if (Reader.HasRows)
+                {
+                    CountriesTable.Load(Reader);
+                }
+                Reader.Close();
+                Connection.Close();
+
+            }
+            catch (Exception E) {
+
+                // save to logs
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return CountriesTable;
         
         }
     }

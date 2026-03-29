@@ -119,9 +119,10 @@ namespace ContactsProject
             DataTable DT = clsContact.GetAllContacts();
             Console.WriteLine("Contacts data: ");
 
-            foreach (DataRow Row in DT.Rows) {
-                
                 Console.WriteLine("FirstName | LastName | LastName");
+            foreach (DataRow Row in DT.Rows) 
+            {
+                
 
                 Console.WriteLine($"\t{Row["ContactID"]} | {Row["FirstName"]} | {Row["LastName"]}");
             }
@@ -201,7 +202,21 @@ namespace ContactsProject
             }
 
         }
-        //static void TestListCountry() { }
+
+        static void TestListCountry() {
+
+            DataTable CountriesTable = clsCountry.GetAllCountries();
+
+            Console.WriteLine("CountryID , CountryName");
+            foreach (DataRow Row in CountriesTable.Rows) 
+            {
+
+                Console.WriteLine($"\t{Row["CountryID"]} ,  {Row["CountryName"]}");
+            }
+        
+        
+        
+        }
         //static void TestIsCountryExist() { }
 
         static void Main(string[] args)
@@ -215,7 +230,8 @@ namespace ContactsProject
             //TestFindCountry(2);
             //TestAddCountry();
             //TestUpdateCountry(1);
-            TestDeleteCountry(4);
+            //TestDeleteCountry(4);
+            TestListCountry();
             Console.ReadKey();
 
         }
