@@ -186,8 +186,8 @@ namespace BusinessLayer
                     else { 
                         return false;
                     }
-                    //case enMode.Update:
-                    //return _UpdateCountry();
+                    case enMode.Update:
+                    return _UpdateCountry();
             
             }
             return false;
@@ -196,11 +196,17 @@ namespace BusinessLayer
         
         }
 
-        public bool _AddNewCountry() {
+        private bool _AddNewCountry() {
 
 
             this.ID = clsCountryData.AddNewCountry(this.CountryName);
             return (this.ID != -1); 
+        
+        }
+
+        private bool _UpdateCountry() {
+
+            return clsCountryData.UpdateCountry(this.ID, this.CountryName);
         
         }
     

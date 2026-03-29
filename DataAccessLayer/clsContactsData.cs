@@ -379,5 +379,38 @@ namespace DataAccessLayer
             return CountryID;
 
         }
+
+        public static bool UpdateCountry(int ID, string CountryName) { 
+        
+            int RowsAffected = 0;
+
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+            string Query = @"update Countries set CountryName = @CountryName where CountryID = @CountryID ";
+            SqlCommand Command = new SqlCommand(Query,Connection);
+            Command.Parameters.AddWithValue("@CountryID", ID);
+            Command.Parameters.AddWithValue("@CountryName", CountryName);
+
+
+            try
+            {
+
+                Connection.Open();
+
+                RowsAffected = Command.ExecuteNonQuery();
+
+            }
+            catch (Exception E)
+            {
+
+                return false;
+            }
+            finally { 
+                
+                Connection.Close();
+            }
+            return (RowsAffected > 0);
+
+        
+        }
     }
 }

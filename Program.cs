@@ -166,7 +166,28 @@ namespace ContactsProject
             
             }
         }
-        //static void TestUpdateCountry() { }
+        static void TestUpdateCountry(int ID) {
+        
+            clsCountry Country = clsCountry.FindCountryByID(ID);
+            if (Country != null)
+            {
+
+                Country.CountryName = "USA";
+
+                if (Country.Save())
+                {
+
+                    Console.WriteLine("Country updated successfully");
+                    CountryCard(Country);
+
+                }
+            }
+            else {
+
+                Console.WriteLine("Country is not Found");
+            }
+        
+        }
         //static void TestDeleteCountry() { }
         //static void TestListCountry() { }
         //static void TestIsCountryExist() { }
@@ -180,7 +201,8 @@ namespace ContactsProject
             //TestListContact();
             //TestIsContactExist(80);
             //TestFindCountry(2);
-            TestAddCountry();
+            //TestAddCountry();
+            TestUpdateCountry(1);
             Console.ReadKey();
 
         }
