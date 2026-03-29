@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
-using System.Runtime.InteropServices;
 using System.Data;
 
 namespace DataAccessLayer
@@ -298,6 +293,47 @@ namespace DataAccessLayer
             return isFound;
         
         
+        }
+    }
+    public class clsCountryData {
+
+        public static bool GetCountryByID(int ID, ref string Country) {
+
+            bool isFound = false;
+
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+            string Query = @"select Countries.* from Countries where CountryID = @CountryID";
+            SqlCommand Command = new SqlCommand(Query, Connection);
+            Command.Parameters.AddWithValue("CountryID",ID);
+
+            try {
+                Connection.Open();
+                SqlDataReader Reader = Command.ExecuteReader();
+
+                if (Reader.Read())
+                {
+                    isFound = true;
+
+                    Country = (string)Reader["CountryName"];
+
+                }
+                else { 
+                
+                    isFound = false;
+
+                }
+                Connection.Close();
+
+            } catch(Exception E) {
+                
+                isFound = false;
+                // Save to log files
+            
+            } finally {
+                Connection.Close();
+            }
+            return isFound;
+
         }
     }
 }

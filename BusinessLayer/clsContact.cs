@@ -126,11 +126,52 @@ namespace BusinessLayer
 
             return clsContactsData.GetAllContacts();
         }
-
-        public static bool IsContactExist(int ID) {
+        public static bool IsContactExist(int ID)
+        {
 
             return clsContactsData.IsContactExist(ID);
         }
+
+    }
+
+    public class clsCountry {
+
+        public enum enMode { AddNew = 0, Update = 1};
+        enMode Mode = enMode.AddNew;
+        public int ID { get; set; }
+        public string CountryName { get; set; }
+
+
+        public clsCountry() {
+
+            this.ID = -1;
+            this.CountryName = "";
+            Mode = enMode.AddNew;
+        
+        }
+
+        private clsCountry(int ID, string CountryName) { 
+        
+            this.ID = ID;
+            this.CountryName = CountryName; 
+            Mode = enMode.Update;
+        }
+        public static clsCountry FindCountryByID(int ID) {
+
+            string CountryName = "";
+
+            if (clsCountryData.GetCountryByID(ID, ref CountryName))
+            {
+
+                return new clsCountry(ID, CountryName);
+            }
+            else { 
+                return null;
+            }
+        
+        }
+    
+    
     }
     
 }

@@ -22,6 +22,18 @@ namespace ContactsProject
 
 
         }
+
+        static void CountryCard(clsCountry Country)
+        {
+
+            Console.WriteLine("=================================");
+            Console.WriteLine($" ContactID: {Country.ID}");
+            Console.WriteLine($" FirstName: {Country.CountryName}");
+            Console.WriteLine("=================================");
+
+
+        }
+
         static void TestFindContact(int ID) {
 
             clsContact Contact = clsContact.Find(ID);
@@ -129,14 +141,34 @@ namespace ContactsProject
                 Console.WriteLine("Contact doesn't exist");
             }
         }
+
+        static void TestFindCountry(int ID) {
+            clsCountry Country = clsCountry.FindCountryByID(ID);
+
+            if (Country != null)
+            {
+                CountryCard(Country);
+            }
+            else {
+                Console.WriteLine($"Country with ID: {ID}, doesn't exist");
+            }
+
+        }
+        //static void TestAddCountry() { }
+        //static void TestUpdateCountry() { }
+        //static void TestDeleteCountry() { }
+        //static void TestListCountry() { }
+        //static void TestIsCountryExist() { }
+
         static void Main(string[] args)
         {
             //TestFindContact(7);
             //TestAddContact();
             //TestUpdateContact(1);
-            TestDeleteContact(5);
+            //TestDeleteContact(5);
             //TestListContact();
             //TestIsContactExist(80);
+            TestFindCountry(2);
             Console.ReadKey();
 
         }
