@@ -23,7 +23,7 @@ namespace ContactsProject
 
         }
 
-        static void CountryCard(clsCountry Country)
+        static void CountryCard(clsCountries Country)
         {
 
             Console.WriteLine("=================================");
@@ -142,9 +142,9 @@ namespace ContactsProject
                 Console.WriteLine("Contact doesn't exist");
             }
         }
-
+        //Country test
         static void TestFindCountry(int ID) {
-            clsCountry Country = clsCountry.FindCountryByID(ID);
+            clsCountries Country = clsCountries.FindCountryByID(ID);
 
             if (Country != null)
             {
@@ -155,9 +155,10 @@ namespace ContactsProject
             }
 
         }
+        //Find by name
 
         static void TestAddCountry() {
-            clsCountry Country = new clsCountry();
+            clsCountries Country = new clsCountries();
             Country.ID = 6;
             Country.CountryName = "Brazil";
 
@@ -169,7 +170,7 @@ namespace ContactsProject
         }
         static void TestUpdateCountry(int ID) {
         
-            clsCountry Country = clsCountry.FindCountryByID(ID);
+            clsCountries Country = clsCountries.FindCountryByID(ID);
             if (Country != null)
             {
 
@@ -191,21 +192,34 @@ namespace ContactsProject
         }
         static void TestDeleteCountry(int ID) {
 
-            if (clsCountry.DeleteCountry(ID))
+
+            if (clsCountries.IsExist(ID))
             {
+                if (clsCountries.DeleteCountry(ID))
+                {
 
-                Console.WriteLine("Country has been deleted successfully:-)");
-            }
-            else { 
-                Console.WriteLine("Country hasn't been deleted :-(");
+                    Console.WriteLine("Country has been deleted successfully:-)");
+                }
+                else
+                {
+                    Console.WriteLine("Country hasn't been deleted :-(");
+
+                }
 
             }
+            else
+            {
+                
+                Console.WriteLine("Country doesn't exist");
+            }
+
+
 
         }
 
         static void TestListCountry() {
 
-            DataTable CountriesTable = clsCountry.GetAllCountries();
+            DataTable CountriesTable = clsCountries.GetAllCountries();
 
             Console.WriteLine("CountryID , CountryName");
             foreach (DataRow Row in CountriesTable.Rows) 
@@ -217,7 +231,21 @@ namespace ContactsProject
         
         
         }
-        //static void TestIsCountryExist() { }
+
+        static void TestIsCountryExist(int ID) {
+
+            if (clsCountries.IsExist(ID))
+            {
+
+                Console.WriteLine($"Country with ID: {ID} exist");
+            }
+            else { 
+                Console.WriteLine("Country doesn't exist");
+            }
+        
+        
+        }
+        //Exist by name
 
         static void Main(string[] args)
         {
@@ -230,8 +258,9 @@ namespace ContactsProject
             //TestFindCountry(2);
             //TestAddCountry();
             //TestUpdateCountry(1);
-            //TestDeleteCountry(4);
+            //TestDeleteCountry(5);
             TestListCountry();
+            //TestIsCountryExist(6);
             Console.ReadKey();
 
         }

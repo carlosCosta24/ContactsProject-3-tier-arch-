@@ -1,9 +1,7 @@
 ﻿using DataAccessLayer;
 using System;
 using System.Data;
-using System.Security.Cryptography;
-using System.Xml;
-using System.Xml.Linq;
+
 
 namespace BusinessLayer
 {
@@ -133,95 +131,6 @@ namespace BusinessLayer
             return clsContactsData.IsContactExist(ID);
         }
 
-    }
-
-    public class clsCountry {
-
-        public enum enMode { AddNew = 0, Update = 1};
-        enMode Mode = enMode.AddNew;
-        public int ID { get; set; }
-        public string CountryName { get; set; }
-
-
-        public clsCountry() {
-
-            this.ID = -1;
-            this.CountryName = "";
-            Mode = enMode.AddNew;
-        
-        }
-
-        private clsCountry(int ID, string CountryName) { 
-        
-            this.ID = ID;
-            this.CountryName = CountryName; 
-            Mode = enMode.Update;
-        }
-        public static clsCountry FindCountryByID(int ID) {
-
-            string CountryName = "";
-
-            if (clsCountryData.GetCountryByID(ID, ref CountryName))
-            {
-
-                return new clsCountry(ID, CountryName);
-            }
-            else { 
-                return null;
-            }
-        
-        }
-
-        public bool Save() {
-
-            switch (Mode) { 
-            
-                case enMode.AddNew:
-                    if (_AddNewCountry())
-                    {
-
-                        Mode = enMode.Update;
-                        return true;
-                    }
-                    else { 
-                        return false;
-                    }
-                    case enMode.Update:
-                    return _UpdateCountry();
-            
-            }
-            return false;
-        
-        
-        
-        }
-
-        private bool _AddNewCountry() {
-
-
-            this.ID = clsCountryData.AddNewCountry(this.CountryName);
-            return (this.ID != -1); 
-        
-        }
-
-        private bool _UpdateCountry() {
-
-            return clsCountryData.UpdateCountry(this.ID, this.CountryName);
-        
-        }
-
-        public static bool DeleteCountry(int ID) {
-
-            return clsCountryData.DeleteCountry(ID);
-        }
-        public static DataTable GetAllCountries() {
-
-
-            return clsCountryData.GetAllCountries();
-        
-        }
-    
-    
     }
     
 }
