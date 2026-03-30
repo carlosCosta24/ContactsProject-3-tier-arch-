@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace DataAccessLayer
     {
      
 
-            public static bool GetCountryByID(int ID, ref string Country)
+        public static bool FindCountry(int ID, ref string Country, ref string Code, ref string PhoneCode)
             {
 
                 bool isFound = false;
@@ -20,7 +21,7 @@ namespace DataAccessLayer
                 SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
                 string Query = @"select Countries.* from Countries where CountryID = @CountryID";
                 SqlCommand Command = new SqlCommand(Query, Connection);
-                Command.Parameters.AddWithValue("CountryID", ID);
+                Command.Parameters.AddWithValue("@CountryID", ID);
 
                 try
                 {
@@ -32,9 +33,12 @@ namespace DataAccessLayer
                         isFound = true;
 
                         Country = (string)Reader["CountryName"];
+                    Code = Reader["Code"] == DBNull.Value ? null : (string)Reader["Code"];
+                    PhoneCode = Reader["PhoneCode"] == DBNull.Value ? null : (string)Reader["PhoneCode"];
 
-                    }
-                    else
+
+                }
+                else
                     {
 
                         isFound = false;
@@ -58,8 +62,54 @@ namespace DataAccessLayer
                 return isFound;
 
             }
+        public static bool FindCountry(ref int ID ,string Country, ref string Code, ref string PhoneCode)
+        {
 
-            public static int AddNewCountry(string CountryName)
+            bool isFound = false;
+
+            SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
+            string Query = @"select Countries.* from Countries where CountryName = @CountryName";
+            SqlCommand Command = new SqlCommand(Query, Connection);
+            Command.Parameters.AddWithValue("@CountryName", Country);
+            try
+            {
+                Connection.Open();
+                SqlDataReader Reader = Command.ExecuteReader();
+
+                if (Reader.Read())
+                {
+                    isFound = true;
+                    ID = (int)Reader["CountryID"];
+                    Code = Reader["Code"] == DBNull.Value ?  null : (string)Reader["Code"];
+                    PhoneCode = Reader["PhoneCode"] == DBNull.Value ? null : (string)Reader["PhoneCode"];
+                }
+                else
+                {
+
+                    isFound = false;
+
+                }
+                Reader.Close();
+
+
+            }
+            catch (Exception E)
+            {
+
+                isFound = false;
+                // Save to log files
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return isFound;
+
+        }
+
+
+        public static int AddNewCountry(string CountryName)
             {
 
 

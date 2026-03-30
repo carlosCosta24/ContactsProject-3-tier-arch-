@@ -13,6 +13,9 @@ namespace BusinessLayer
             enMode Mode = enMode.AddNew;
             public int ID { get; set; }
             public string CountryName { get; set; }
+            public string CountryCode { get; set; }
+            public string CountryPhoneCode { get; set; }
+
 
 
             public clsCountries()
@@ -20,27 +23,33 @@ namespace BusinessLayer
 
                 this.ID = -1;
                 this.CountryName = "";
+                this.CountryCode = "";
+                this.CountryPhoneCode = "";
                 Mode = enMode.AddNew;
 
             }
 
-            private clsCountries(int ID, string CountryName)
+            private clsCountries(int ID, string CountryName, string Code, string PhoneCode)
             {
 
                 this.ID = ID;
                 this.CountryName = CountryName;
+                this.CountryCode = Code;
+                this.CountryPhoneCode= PhoneCode;
                 Mode = enMode.Update;
             }
-            public static clsCountries FindCountryByID(int ID)
+            public static clsCountries FindCountry(int ID)
             {
 
+                int CountryID = -1;
                 string CountryName = "";
-                int CountryId = -1;
+                string CountryCode = "";
+                string PhoneCode = "";
 
-                if (clsCountriesData.GetCountryByID(ID, ref CountryName))
+                if (clsCountriesData.FindCountry (ID, ref CountryName , ref CountryCode, ref PhoneCode ))
                 {
 
-                    return new clsCountries(ID, CountryName);
+                    return new clsCountries(ID, CountryName,CountryCode,PhoneCode);
                 }
                 else
                 {
@@ -48,8 +57,25 @@ namespace BusinessLayer
                 }
 
             }
+        public static clsCountries FindCountry(string Name)
+        {
+            int CountryID = -1; 
+            string Code = "";
+            string PhoneCode = "";
 
-            public bool Save()
+            if (clsCountriesData.FindCountry(ref CountryID, Name, ref Code, ref PhoneCode))
+            {
+
+                return new clsCountries(CountryID, Name,Code,PhoneCode);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public bool Save()
             {
 
                 switch (Mode)
