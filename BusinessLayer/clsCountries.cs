@@ -14,8 +14,6 @@ namespace BusinessLayer
         public string CountryCode { get; set; }
         public string CountryPhoneCode { get; set; }
 
-
-
         public clsCountries()
         {
 
@@ -104,7 +102,7 @@ namespace BusinessLayer
         {
 
 
-            this.ID = clsCountriesData.AddNewCountry(this.CountryName);
+            this.ID = clsCountriesData.AddNewCountry(this.CountryName,this.CountryCode,this.CountryPhoneCode);
             return (this.ID != -1);
 
         }
@@ -136,7 +134,6 @@ namespace BusinessLayer
 
 
         }
-
 
     }
 }

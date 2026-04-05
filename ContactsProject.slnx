@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="BusinessLayer/BusinessLayer.csproj" />
-  <Project Path="DataAccessLayer/DataAccessLayer.csproj" />
-  <Project Path="UILayer.csproj" />
+  <Project Path="../../../../../../Desktop/Programming_S2/C#&amp;DB/ContactsProject/BusinessLayer/BusinessLayer.csproj" Id="fadeb8a4-cd3f-4459-b74c-6f6d3febb843" />
+  <Project Path="../../../../../../Desktop/Programming_S2/C#&amp;DB/ContactsProject/DataAccessLayer/DataAccessLayer.csproj" Id="aca268c9-a65e-439c-bd7b-6baa31f5b523" />
+  <Project Path="../../../../../../Desktop/Programming_S2/C#&amp;DB/ContactsProject/UILayer.csproj" Id="02c99c08-a8d1-4bdc-af85-7ee8b2c02817" />
 </Solution>

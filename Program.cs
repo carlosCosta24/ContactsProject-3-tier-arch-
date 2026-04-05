@@ -176,12 +176,15 @@ namespace ContactsProject
         }
         static void TestAddCountry() {
             clsCountries Country = new clsCountries();
-            Country.ID = 6;
-            Country.CountryName = "Brazil";
+            Country.ID = 7;
+            Country.CountryName = "France";
+            Country.CountryCode = "FR";
+            Country.CountryPhoneCode = "+33";
 
             if (Country.Save()) {
 
                 Console.WriteLine($"Country has been Add successfully: with ID: {Country.ID}");
+                CountryCard(Country);
             
             }
         }
@@ -191,7 +194,9 @@ namespace ContactsProject
             if (Country != null)
             {
 
-                Country.CountryName = "USA";
+                Country.CountryName = "Australia";
+                Country.CountryCode = "AU";
+                Country.CountryPhoneCode = "+61";
 
                 if (Country.Save())
                 {
@@ -238,11 +243,11 @@ namespace ContactsProject
 
             DataTable CountriesTable = clsCountries.GetAllCountries();
 
-            Console.WriteLine("CountryID , CountryName");
+            Console.WriteLine("CountryID , CountryName ,CountryCode, PhoneCode");
             foreach (DataRow Row in CountriesTable.Rows) 
             {
 
-                Console.WriteLine($"\t{Row["CountryID"]} ,  {Row["CountryName"]}");
+                Console.WriteLine($"\t{Row["CountryID"]} ,  {Row["CountryName"]}, { Row["Code"]}, {Row["PhoneCode"]}");
             }
         
         
@@ -255,6 +260,7 @@ namespace ContactsProject
             {
 
                 Console.WriteLine($"Country with ID: {ID} exist");
+                CountryCard(clsCountries.FindCountry(ID));
             }
             else { 
                 Console.WriteLine("Country doesn't exist");
@@ -273,13 +279,13 @@ namespace ContactsProject
             //TestListContact();
             //TestIsContactExist(80);
 
-            //TestFindCountry(2);
-            TestFindCountryByName("USA");
+            //TestFindCountry(1);
+            //TestFindCountryByName("USA");
             //TestAddCountry();
-            //TestUpdateCountry(1);
-            //TestDeleteCountry(5);
+            //TestUpdateCountry(8);
+            //TestDeleteCountry(1);
             //TestListCountry();
-            //TestIsCountryExist(6);
+            TestIsCountryExist(6);
             Console.ReadKey();
 
         }

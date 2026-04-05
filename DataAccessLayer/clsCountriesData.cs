@@ -108,8 +108,7 @@ namespace DataAccessLayer
 
         }
 
-
-        public static int AddNewCountry(string CountryName)
+        public static int AddNewCountry(string CountryName, string Code, string PhoneCode)
             {
 
 
@@ -117,15 +116,18 @@ namespace DataAccessLayer
 
                 SqlConnection Connection = new SqlConnection(clsDataBaseAccess.Access);
 
-                string Query = @"insert into Countries (CountryName) values (@CountryName) select scope_identity()";
+                string Query = @"insert into Countries (CountryName,Code,PhoneCode)values (@CountryName,@Code,@PhoneCode) select scope_identity()";
 
                 SqlCommand Command = new SqlCommand(Query, Connection);
 
 
                 Command.Parameters.AddWithValue("@CountryName", CountryName);
+                Command.Parameters.AddWithValue("@Code", Code);
+                Command.Parameters.AddWithValue("@PhoneCode", PhoneCode);
 
-                try
-                {
+
+            try
+            {
 
                     Connection.Open();
 
@@ -155,7 +157,7 @@ namespace DataAccessLayer
 
             }
 
-            public static bool UpdateCountry(int ID, string CountryName)
+        public static bool UpdateCountry(int ID, string CountryName)
             {
 
                 int RowsAffected = 0;
@@ -190,7 +192,7 @@ namespace DataAccessLayer
 
             }
 
-            public static bool DeleteCountry(int ID)
+        public static bool DeleteCountry(int ID)
             {
 
                 int RowsAffected = 0;
@@ -221,7 +223,7 @@ namespace DataAccessLayer
 
             }
 
-            public static DataTable GetAllCountries()
+        public static DataTable GetAllCountries()
             {
 
 
@@ -257,7 +259,7 @@ namespace DataAccessLayer
 
             }
 
-            public static bool IsExist(int ID)
+        public static bool IsExist(int ID)
             {
 
                 bool IsExist = false;
