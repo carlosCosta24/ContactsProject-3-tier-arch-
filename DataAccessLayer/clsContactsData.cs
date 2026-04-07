@@ -90,10 +90,11 @@ namespace DataAccessLayer
             Command.Parameters.AddWithValue("@Address", Address);
             Command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
             Command.Parameters.AddWithValue("@CountryID", CountryID);
+
             if (ImagePath != "")
             {
 
-                Command.Parameters.AddWithValue("@FirstName", FirstName);
+                Command.Parameters.AddWithValue("@ImagePath", ImagePath);
             }
             else
             {
