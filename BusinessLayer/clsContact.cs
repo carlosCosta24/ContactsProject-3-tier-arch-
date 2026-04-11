@@ -130,7 +130,11 @@ namespace BusinessLayer
 
             return clsContactsData.IsContactExist(ID);
         }
+        public static DataTable GetAllContactsIDs() { 
+            return clsContactsData.GetAllIDs();
+        }
 
     }
+
     
 }

@@ -253,6 +253,38 @@ namespace DataAccessLayer
             return dt;
         }
 
+        public static DataTable GetAllIDs() { 
+            
+            DataTable IDs = new DataTable();
+            SqlConnection connection = new SqlConnection(clsDataBaseAccess.Access);
+
+            string Query = "select ContactID from Contacts";
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader Reader = command.ExecuteReader();
+                if (Reader.HasRows)
+                {
+                    IDs.Load(Reader);
+                }
+                Reader.Close();
+                connection.Close();
+            }
+            catch (Exception E)
+            {
+                //log errors
+            }
+            finally {
+
+                connection.Close();
+            
+            }
+            return IDs;
+
+
+        }
         public static bool IsContactExist(int ID) { 
         
             bool isFound = false;
